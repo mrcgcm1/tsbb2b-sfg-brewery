@@ -146,6 +146,35 @@
                 </configuration>
             </plugin>
 
+            <plugin><!-- Configurazione del supporto git-flow -->
+                <groupId>com.amashchenko.maven.plugin</groupId>
+                <artifactId>gitflow-maven-plugin</artifactId>
+                <version>1.16.0</version>
+                <configuration>
+                    <mvnExecutable>./mvnw</mvnExecutable>
+                    <!-- necessario se si usa il maven wrapper -->
+                    <gitFlowConfig>
+                        <productionBranch>master</productionBranch>
+                        <developmentBranch>develop</developmentBranch>
+                        <!-- i seguenti prefissi devono terminare con - invece che con /, altrimenti
+                            le chiamate a Jenkins potrebbero non funzionare -->
+                        <featureBranchPrefix>feature-</featureBranchPrefix>
+                        <releaseBranchPrefix>release-</releaseBranchPrefix>
+                        <hotfixBranchPrefix>hotfix-</hotfixBranchPrefix>
+                        <supportBranchPrefix>support-</supportBranchPrefix>
+                        <versionTagPrefix></versionTagPrefix>
+                        <origin>origin</origin>
+                    </gitFlowConfig>
+                    <keepBranch>false</keepBranch>
+                    <!-- se true il branch non viene cancellato al finish -->
+                    <pushRemote>true</pushRemote><!-- se true crea i branch anche sul server -->
+                    <skipTestProject>${maven.test.skip}</skipTestProject><!-- esegue i test
+						prima del finish, se non esplicitamente disabilitati -->
+                    <skipFeatureVersion>true</skipFeatureVersion>         <!-- disabilita il nome branch aggiunto versione -->
+                    <versionDigitToIncrement>1</versionDigitToIncrement> <!-- incrementa la minor nei release -->
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 </project>
